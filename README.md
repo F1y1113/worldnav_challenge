@@ -176,7 +176,7 @@ Submissions are evaluated on navigation quality using **Success Rate (SR)**, **A
 **Submissions are ranked by the following Score (higher is better):**
 
 $$
-\boxed{\mathrm{Score} = 100\left(0.70\,\mathrm{SR} + \frac{0.20}{1+\mathrm{ATE}} + \frac{0.10}{1+\mathrm{RPE}}\right)}
+\mathrm{Score} = 100 \times \left(0.70 \times \mathrm{SR} + \frac{0.20}{1+\mathrm{ATE}} + \frac{0.10}{1+\mathrm{RPE}}\right)
 $$
 
 The weights are **70% for SR**, **20% for the ATE-based term**, and **10% for the RPE-based term**. SR is a fraction in `[0, 1]`. Both phases use this formula, calculated from full-precision metrics and displayed to six decimal places.
