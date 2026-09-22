@@ -26,6 +26,10 @@
     pre.bibtex { white-space: pre-wrap; word-break: break-word; }
     /* Long labels wrap instead of pushing the page sideways on narrow screens. */
     a.button { white-space: normal; max-width: 100%; height: auto; }
+    /* Justified prose leaves rivers of space around long links and e-mail addresses; keep it flush left. */
+    .has-text-justified { text-align: left !important; }
+    /* The metric direction column holds two-word labels and must not wrap. */
+    table.eval-table td:nth-child(2), table.eval-table th:nth-child(2) { white-space: nowrap; }
   </style>
 </head>
 <body>
@@ -201,7 +205,7 @@
           <div class="content has-text-justified">
             <p>Submissions are evaluated on navigation quality using <b>Success Rate (SR)</b>, <b>Absolute Trajectory Error (ATE)</b>, and <b>Relative Pose Error (RPE)</b>.</p>
             <div class="table-container">
-              <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+              <table class="table is-bordered is-striped is-hoverable is-fullwidth eval-table">
                 <thead><tr><th>Metric</th><th>Direction</th><th>Description</th></tr></thead>
                 <tbody>
                   <tr><td><b>SR</b></td><td>Higher is better</td><td>Fraction of trajectories whose final distance to the goal is smaller than the agent's average step size.</td></tr>
@@ -248,11 +252,11 @@
           <h2 class="title is-3" style="margin-top: 40px;">❓ Frequently Asked Questions</h2>
           <div class="content has-text-justified">
             <p><b>1. Do I have to use a world model?</b><br>No. World-model agents, VLA models, and policy-only methods are all eligible. The track particularly encourages approaches that use predicted future states to guide planning.</p>
-            <p><b>2. Do I need to run a simulator or submit executable agent code?</b><br>No simulator or executable agent code is required for the scored submission. Upload the prediction files described in the submission format; the evaluation server scores the submitted trajectories.</p>
+            <p><b>2. Do I need to run a simulator or submit executable agent code?</b><br>No simulator or executable agent code is required for the scored submission. Upload the prediction files described in the <a href="https://github.com/F1y1113/worldnav_challenge" target="_blank">track repository</a>; the evaluation server scores the submitted trajectories.</p>
             <p><b>3. Can the agent receive new observations during inference?</b><br>Only the initial RGB observation and the instruction are provided. The agent may generate and use its own predicted future observations, but it cannot access intermediate observations from the environment.</p>
             <p><b>4. Are test annotations available?</b><br>No. Phase 2 provides the initial observations and instructions needed for inference. Reference test trajectories and target annotations remain withheld.</p>
             <p><b>5. Which episodes must my submission include?</b><br>Include every episode in the official manifest exactly once. Phase 1 requires 10,806 <code>val_seen</code> episodes and 4,500 <code>val_unseen</code> episodes, covering the three instruction styles. Copy episode identifiers directly from the manifests.</p>
-            <p><b>6. What should I do if my submission is rejected?</b><br>Check the CodaBench scoring log. A <code>SUBMISSION REJECTED:</code> message identifies a submission issue, such as missing episodes, duplicate identifiers, or an incorrect archive layout. Correct the reported issue and resubmit. A <code>SCORING DATA ERROR (organizer):</code> message indicates an organizer-side problem; report it through GitHub Issues or email.</p>
+            <p><b>6. What should I do if my submission is rejected?</b><br>Run the format checker that ships with the starting kit (<code>python3 check_submission.py submission.zip</code>) first: it applies the same structural rules as the official scoring program and prints the same message. Then check the CodaBench scoring log. A <code>SUBMISSION REJECTED:</code> message identifies a submission issue, such as missing episodes, duplicate identifiers, or an incorrect archive layout. Correct the reported issue and resubmit. A <code>SCORING DATA ERROR (organizer):</code> message indicates an organizer-side problem; report it through GitHub Issues or email.</p>
           </div>
 
           <hr>
