@@ -32,7 +32,7 @@ The track encourages methods that couple imagination with control: world models 
 |:--|:--|
 | **Input** | One initial egocentric RGB image and one natural-language instruction. |
 | **Output** | A sequence of continuous navigation actions, each consisting of planar displacement and yaw rotation. |
-| **Termination** | The agent ends the trajectory with a Stop command or null action. |
+| **Termination** | The agent decides when the trajectory ends; the submitted action sequence is scored as a whole. |
 | **Setting** | Open-loop generation: no goal image or intermediate environmental feedback is available. |
 
 Agents may generate the trajectory autoregressively, using their own predicted future observations or states to plan subsequent actions. The instruction remains the navigation goal throughout the rollout.
@@ -215,7 +215,7 @@ The example below illustrates the JSON structure with one episode and three moti
 | `episode_id` | The episode identifier from the manifest; each identifier must appear exactly once. |
 | `actions` | The ordered motion commands `[dx, dy, dyaw]`: planar displacement in metres and yaw rotation in radians. |
 
-Generate each trajectory from its initial RGB observation and natural-language instruction. The model determines when to stop, ending the trajectory with a Stop command or null action. Follow the starting kit's schema for encoding termination in the prediction file.
+Generate each trajectory from its initial RGB observation and natural-language instruction. The model decides how many actions to emit: the number of actions is not fixed, and a predicted trajectory may be shorter or longer than the reference one.
 
 The scored submission consists of prediction files. The starting kit on CodaBench provides the episode manifests, an example submission, a local format checker (`check_submission.py`) and packaging instructions; run the checker before uploading so a malformed archive never costs one of your submission attempts. See the competition's **Submission & Evaluation** page for the full file specification.
 
