@@ -276,7 +276,6 @@ cd LCVN
             <p>The example below illustrates the JSON structure with one episode and three motion commands. It is an abbreviated example; use the official starting kit for a complete submission.</p>
             <pre style="background-color: #f9f9f9; padding: 1em; border-radius: 5px; overflow-x: auto;">
 {
-  "format_version": 1,
   "split": "val_unseen",
   "episodes": [
     {
@@ -290,7 +289,6 @@ cd LCVN
               <table class="table is-bordered is-striped is-hoverable is-fullwidth">
                 <thead><tr><th>Field</th><th>Description</th></tr></thead>
                 <tbody>
-                  <tr><td><code>format_version</code></td><td>Use the JSON number <code>1</code>.</td></tr>
                   <tr><td><code>split</code></td><td><code>val_seen</code>, <code>val_unseen</code>, or <code>test</code>, matching the filename and submission phase.</td></tr>
                   <tr><td><code>episodes</code></td><td>Predictions for all episodes in the corresponding official manifest.</td></tr>
                   <tr><td><code>episode_id</code></td><td>The episode identifier from the manifest; each identifier must appear exactly once.</td></tr>
@@ -309,6 +307,10 @@ zip -j submission.zip val_seen.json val_unseen.json
 zip -j submission_test.zip test.json
             </pre>
             <p>Place only the required JSON files at the archive root; do not include a parent directory or unrelated files. Upload the archive to the corresponding CodaBench phase, then check the scoring log for validation results and evaluation metrics.</p>
+            <p>The starting kit ships a local format checker that applies the same structural rules as the official scoring program. Run it before uploading so a malformed archive never costs one of your submission attempts:</p>
+            <pre style="background-color: #f9f9f9; padding: 1em; border-radius: 5px; overflow-x: auto;">
+python3 check_submission.py submission.zip
+            </pre>
 
             <h3 class="title is-5" style="color: #76b900; margin-top: 24px;">Submission Limits</h3>
             <p>Each participant may submit <b>5 times per day</b> and <b>100 times in total per phase</b>. The leaderboard retains the team's best-scoring submission.</p>
