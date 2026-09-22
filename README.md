@@ -198,7 +198,6 @@ The example below illustrates the JSON structure with one episode and three moti
 
 ```json
 {
-  "format_version": 1,
   "split": "val_unseen",
   "episodes": [
     {
@@ -211,7 +210,6 @@ The example below illustrates the JSON structure with one episode and three moti
 
 | Field | Description |
 |:--|:--|
-| `format_version` | Use the JSON number `1`. |
 | `split` | `val_seen`, `val_unseen`, or `test`, matching the filename and submission phase. |
 | `episodes` | Predictions for all episodes in the corresponding official manifest. |
 | `episode_id` | The episode identifier from the manifest; each identifier must appear exactly once. |
@@ -219,7 +217,7 @@ The example below illustrates the JSON structure with one episode and three moti
 
 Generate each trajectory from its initial RGB observation and natural-language instruction. The model determines when to stop, ending the trajectory with a Stop command or null action. Follow the starting kit's schema for encoding termination in the prediction file.
 
-The scored submission consists of prediction files. The starting kit on CodaBench provides the episode manifests, an example submission, and packaging instructions. See the competition's **Submission & Evaluation** page for the full file specification.
+The scored submission consists of prediction files. The starting kit on CodaBench provides the episode manifests, an example submission, a local format checker (`check_submission.py`) and packaging instructions; run the checker before uploading so a malformed archive never costs one of your submission attempts. See the competition's **Submission & Evaluation** page for the full file specification.
 
 ### Package and Upload
 
