@@ -79,7 +79,7 @@
                 <tbody>
                   <tr><td><b>Input</b></td><td>One initial egocentric RGB image and one natural-language instruction.</td></tr>
                   <tr><td><b>Output</b></td><td>A sequence of continuous navigation actions, each consisting of planar displacement and yaw rotation.</td></tr>
-                  <tr><td><b>Horizon</b></td><td>One motion command per environment step; the number of steps of every episode is listed in the phase manifest.</td></tr>
+                  <tr><td><b>Termination</b></td><td>The agent ends the trajectory with a Stop command or null action.</td></tr>
                   <tr><td><b>Setting</b></td><td>Open-loop generation: no goal image or intermediate environmental feedback is available.</td></tr>
                 </tbody>
               </table>
