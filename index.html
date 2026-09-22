@@ -67,7 +67,6 @@
         <div class="column is-full-width left">
           <div class="content has-text-justified">
             <p><img src="./assets/figure1-teaser.png" alt="Language-conditioned visual navigation with LCVN" style="max-width: 100%; height: auto;"></p>
-            <p class="figcap"><b>Figure 1.</b> Language-conditioned visual navigation (LCVN). Given only an initial egocentric observation and a language instruction, the agent generates the entire future trajectory without environmental feedback, imagining intermediate states along the described route.</p>
           </div>
 
           <hr>
@@ -93,7 +92,6 @@
             </div>
             <p>Agents may generate the trajectory autoregressively, using their own predicted future observations or states to plan subsequent actions. The instruction remains the navigation goal throughout the rollout.</p>
             <p><img src="./assets/figure4-qualitative.png" alt="Qualitative comparison of world-model navigation on the LCVN validation seen split" style="max-width: 100%; height: auto;"></p>
-            <p class="figcap"><b>Figure 2.</b> Qualitative comparison on the LCVN <code>val_seen</code> split. World-model agents exhibit stronger sensitivity to directional changes and are less prone to losing landmarks during world modeling.</p>
           </div>
 
           <hr>
@@ -180,49 +178,6 @@
 
           <hr>
 
-          <h2 class="title is-3" style="margin-top: 40px;">🚀 Getting Started</h2>
-          <div class="content has-text-justified">
-            <h3 class="title is-5" style="color: #76b900; margin-top: 20px;">1. Download the Data</h3>
-            <p>From the track repository, run:</p>
-            <pre style="background-color: #f9f9f9; padding: 1em; border-radius: 5px; overflow-x: auto;">
-# Download and extract all released splits.
-bash download_data.sh
-
-# Alternatively, download only the Phase 1 validation splits.
-SPLITS="val_seen val_unseen" bash download_data.sh
-            </pre>
-            <p>The released archives are <code>train.tar</code> (57.6 GB), <code>val_seen.tar</code> (7.4 GB), and <code>val_unseen.tar</code> (20.3 GB). After extraction, the expected directory structure is:</p>
-            <pre style="background-color: #f9f9f9; padding: 1em; border-radius: 5px; overflow-x: auto;">
-data/
-└── lcvn/
-    ├── train/
-    │   ├── {trajectory_id}/
-    │   │   ├── 0.jpg
-    │   │   ├── 1.jpg
-    │   │   ├── ...
-    │   │   ├── n.jpg
-    │   │   └── traj_data.pkl
-    │   └── ...
-    ├── val_seen/
-    │   └── ...
-    └── val_unseen/
-        └── ...
-            </pre>
-            <p>Each <code>{trajectory_id}/</code> folder contains a sequence of egocentric RGB frames and a <code>traj_data.pkl</code> file storing trajectory metadata such as navigation actions, pose-related information, and language instructions. The download script is available in the <a href="https://github.com/F1y1113/worldnav_challenge" target="_blank">track repository</a>.</p>
-
-            <h3 class="title is-5" style="color: #76b900; margin-top: 24px;">2. Set Up a Baseline</h3>
-            <p>Clone the LCVN implementation and follow the model-specific environment setup, data preparation, training, and inference instructions in the <a href="https://github.com/F1y1113/LCVN#readme" target="_blank">LCVN README</a>:</p>
-            <pre style="background-color: #f9f9f9; padding: 1em; border-radius: 5px; overflow-x: auto;">
-git clone https://github.com/F1y1113/LCVN.git
-cd LCVN
-            </pre>
-
-            <h3 class="title is-5" style="color: #76b900; margin-top: 24px;">3. Prepare a Submission</h3>
-            <p>Download the starting kit from the relevant phase on <a href="https://www.codabench.org/competitions/18185/" target="_blank">CodaBench</a>. Use its episode manifest and submission schema to export your model predictions, then package the files as described in the submission format below.</p>
-          </div>
-
-          <hr>
-
           <h2 class="title is-3" style="margin-top: 40px;">🧠 Baseline Models</h2>
           <div class="content has-text-justified">
             <p>Two complementary LCVN approaches serve as the reference baselines:</p>
@@ -264,63 +219,6 @@ cd LCVN
 
             <p>The weights are <b>70% for SR</b>, <b>20% for the ATE-based term</b>, and <b>10% for the RPE-based term</b>. SR is a fraction in <code>[0, 1]</code>. Both phases use this formula, calculated from full-precision metrics and displayed to six decimal places.</p>
             <p>Ties are broken by higher SR, then lower ATE, then lower RPE, and finally earlier submission time, using the metrics for the phase's ranking split.</p>
-          </div>
-
-          <hr>
-
-          <h2 class="title is-3" style="margin-top: 40px;">📥 Submission Format</h2>
-          <div class="content has-text-justified">
-            <p>Submit predictions as <b>one ZIP archive</b> through <a href="https://www.codabench.org/competitions/18185/" target="_blank">CodaBench</a>.</p>
-            <div class="table-container">
-              <table class="table is-bordered is-striped is-hoverable is-fullwidth">
-                <thead><tr><th>Phase</th><th>Required files at the ZIP archive root</th></tr></thead>
-                <tbody>
-                  <tr><td>Phase 1</td><td><code>val_seen.json</code> and <code>val_unseen.json</code></td></tr>
-                  <tr><td>Phase 2</td><td><code>test.json</code></td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p>The example below illustrates the JSON structure with one episode and three motion commands. It is an abbreviated example; use the official starting kit for a complete submission.</p>
-            <pre style="background-color: #f9f9f9; padding: 1em; border-radius: 5px; overflow-x: auto;">
-{
-  "split": "val_unseen",
-  "episodes": [
-    {
-      "episode_id": "20210826_40_0001_02_0",
-      "actions": [[0.25, 0.0, 0.0], [0.0, 0.0, 0.15], [0.12, -0.05, 0.0]]
-    }
-  ]
-}
-            </pre>
-            <div class="table-container">
-              <table class="table is-bordered is-striped is-hoverable is-fullwidth">
-                <thead><tr><th>Field</th><th>Description</th></tr></thead>
-                <tbody>
-                  <tr><td><code>split</code></td><td><code>val_seen</code>, <code>val_unseen</code>, or <code>test</code>, matching the filename and submission phase.</td></tr>
-                  <tr><td><code>episodes</code></td><td>Predictions for all episodes in the corresponding official manifest.</td></tr>
-                  <tr><td><code>episode_id</code></td><td>The episode identifier from the manifest; each identifier must appear exactly once.</td></tr>
-                  <tr><td><code>actions</code></td><td>The ordered motion commands <code>[dx, dy, dyaw]</code>: planar displacement in metres and yaw rotation in radians, one command per environment step. Each episode must contain exactly the number of steps listed for it in the manifest; an agent that stops earlier appends null actions <code>[0, 0, 0]</code> for the remaining steps.</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p>Generate each trajectory from its initial RGB observation and natural-language instruction. The scored submission consists of prediction files; the starting kit on CodaBench provides the episode manifests, an example submission, and packaging instructions. See the competition's <b>Submission &amp; Evaluation</b> page for the full file specification.</p>
-
-            <h3 class="title is-5" style="color: #76b900; margin-top: 24px;">Package and Upload</h3>
-            <pre style="background-color: #f9f9f9; padding: 1em; border-radius: 5px; overflow-x: auto;">
-# Phase 1
-zip -j submission.zip val_seen.json val_unseen.json
-
-# Phase 2
-zip -j submission_test.zip test.json
-            </pre>
-            <p>Place only the required JSON files at the archive root; do not include a parent directory or unrelated files. Upload the archive to the corresponding CodaBench phase, then check the scoring log for validation results and evaluation metrics.</p>
-            <p>The starting kit ships a local format checker that applies the same structural rules as the official scoring program. Run it before uploading so a malformed archive never costs one of your submission attempts:</p>
-            <pre style="background-color: #f9f9f9; padding: 1em; border-radius: 5px; overflow-x: auto;">
-python3 check_submission.py submission.zip
-            </pre>
-
-            <h3 class="title is-5" style="color: #76b900; margin-top: 24px;">Submission Limits</h3>
-            <p>Each participant may submit <b>5 times per day</b> and <b>100 times in total per phase</b>. The leaderboard retains the team's best-scoring submission.</p>
           </div>
 
           <hr>
@@ -389,12 +287,6 @@ python3 check_submission.py submission.zip
             </div>
           </div>
 
-          <hr>
-
-          <h2 class="title is-3" style="margin-top: 40px;">🤝 Acknowledgements</h2>
-          <div class="content has-text-justified">
-            <p>WorldNav is organized by the RoboWorld Challenge 2026 team as part of an independently organized challenge associated with the <a href="https://robotpad2026.github.io/" target="_blank">RoboPAD Workshop at NeurIPS 2026</a>. We thank the LCVN authors and contributors, the DFoT, UniWM, and LUMOS teams, and CodaBench for the evaluation infrastructure.</p>
-          </div>
         </div>
       </div>
     </div><br>
