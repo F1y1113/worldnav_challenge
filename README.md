@@ -1,4 +1,4 @@
-<h1 align="center">🤖 RoboWorld Track 1:<br>WorldNav: Language-Conditioned World Navigation</h1>
+<h1 align="center">🤖 RoboWorld Track 1: WorldNav <br> Language-Conditioned World Navigation</h1>
 
 <div align="center">
 
